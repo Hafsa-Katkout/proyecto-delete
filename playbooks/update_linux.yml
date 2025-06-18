@@ -1,0 +1,10 @@
+---
+- name: Playbook para actualizar repositorios
+  hosts: all
+  become: yes
+  tasks:
+    - name: Prueba de conexión
+      ping:
+
+    - name: Ejecutar 'apt update'
+      command: apt update

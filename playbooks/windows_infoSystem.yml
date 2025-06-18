@@ -1,0 +1,24 @@
+---
+- name: Obtener información del sistema en máquinas Windows
+  hosts: all
+  gather_facts: no
+  tasks:
+
+    - name: Obtener información básica del sistema usando systeminfo en PowerShell
+      win_command: systeminfo
+      register: systeminfo_output
+      ignore_errors: yes
+
+    - name: Verificar la salida del comando
+      debug:
+        var: systeminfo_output
+
+    - name: Reemplazar saltos de línea y limpiar espacios extra
+      set_fact:
+        systeminfo_lines: "{{ systeminfo_output.stdout | regex_replace('\\r', '') | split('\n') }}"
+
+    - name: Mostrar cada línea de la salida limpia
+      debug:
+        msg: "{{ item }}"
+      with_items: "{{ systeminfo_lines }}"
+      when: item != ""
