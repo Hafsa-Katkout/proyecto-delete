@@ -204,6 +204,13 @@ Si tienes alguna duda o necesitas asistencia, no dudes en ponerte en contacto co
                             <input type="hidden" name="id" value="<?php echo $fila['id']; ?>">
                             <button type="submit" class="boton boton-editar">Modificar</button>
                         </form>
+                        <!-- Botón para eliminar -->
+                        <a href="delete.php?producto_id=<?php echo $fila['id']; ?>" 
+                        class="boton boton-editar" 
+                        style="background-color:#dc3545;" 
+                        onclick="return confirm('¿Está seguro de eliminar este producto?')">
+                        Eliminar
+                        </a>
                     </td>
                 </tr>
             <?php endwhile; ?>

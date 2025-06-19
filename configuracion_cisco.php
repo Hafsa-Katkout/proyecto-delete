@@ -197,6 +197,12 @@ try {
                 <a class="btn btn-accion" href="#" onclick="document.getElementById('form-ejecutar-<?= $host['id'] ?>').submit();">
                     Ejecutar acción
                 </a>
+                <a class="btn btn-accion" 
+                href="delete_cisco.php?host_id=<?= $host['id'] ?>" 
+                style="background-color: #dc3545; color: white;" 
+                onclick="return confirm('¿Estás seguro de que deseas eliminar este router?');">
+                Eliminar
+                </a>
 
                     </td>
                 </tr>
