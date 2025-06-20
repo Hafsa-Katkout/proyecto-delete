@@ -195,5 +195,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <input type="submit" value="Guardar máquina">
     </form>
+    <div class="botones-superiores">
+        <a href="backupMachine.php" class="boton-navegacion">Volver</a>
+        <a href="logout.php" class="boton-navegacion">Cerrar sesión</a>
+        <a href="ayuda.html" class="boton-navegacion">Ayuda</a>
+    </div>
 </body>
 </html>
