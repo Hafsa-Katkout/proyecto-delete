@@ -116,7 +116,8 @@ shell_exec($command_chown);
     $playbook = '/var/www/html/proyecto/playbooks/backup_linux.yml';
     $playbook = escapeshellarg($playbook);
 
-    $command = "sudo ansible-playbook -i $ip, -u $usuario --private-key $ruta_clave $playbook 2>&1";
+    $command = "sudo ansible-playbook -i $ip, -u $usuario --private-key $ruta_clave --extra-vars 'machine_ip=$ip' $playbook 2>&1";
+
 
     echo "<h3>Ejecutando:</h3><pre>$command</pre>";
     
