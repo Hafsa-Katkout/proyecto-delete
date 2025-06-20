@@ -9,34 +9,22 @@
     - name: Comprimir /etc en la máquina remota
       command: tar czf /tmp/etc_backup.tar.gz /etc
 
-- name: Descargar el backup a la máquina local con nombre incremental
-  hosts: all  # CAMBIADO: ya no es localhost
+- name: Descargar el backup a la máquina local con IP en el nombre
+  hosts: all
   vars:
-    local_backup_base: "/home/ubuntu/backups/etc_backup"
+    local_backup_dir: "/home/ubuntu/backups"
     ext: ".tar.gz"
   tasks:
     - name: Asegurar que la carpeta local de backups exista
       file:
-        path: /home/ubuntu/backups
+        path: "{{ local_backup_dir }}"
         state: directory
         mode: '0755'
       delegate_to: localhost
 
-    - name: Obtener nombres existentes
-      find:
-        paths: /home/ubuntu/backups
-        patterns: "etc_backup*.tar.gz"
-      register: existing_files
-      delegate_to: localhost
-
-    - name: Calcular siguiente número disponible
+    - name: Definir nombre final del archivo con la IP
       set_fact:
-        next_backup_number: "{{ (existing_files.files | map(attribute='path') | map('basename') | map('regex_search', '^etc_backup(\\d*)\\.tar\\.gz$') | map('last') | map('int') | list | max() | default(0)) + 1 }}"
-      delegate_to: localhost
-
-    - name: Definir nombre final del archivo
-      set_fact:
-        backup_filename: "{{ local_backup_base }}{{ '' if next_backup_number == 1 else next_backup_number }}{{ ext }}"
+        backup_filename: "{{ local_backup_dir }}/etc_backup_{{ machine_ip }}{{ ext }}"
       delegate_to: localhost
 
     - name: Copiar backup desde la máquina remota
@@ -44,6 +32,7 @@
         src: /tmp/etc_backup.tar.gz
         dest: "{{ backup_filename }}"
         flat: yes
+
 
 - name: Limpiar archivo de backup temporal en la máquina remota
   hosts: all
