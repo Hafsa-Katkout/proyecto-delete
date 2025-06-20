@@ -113,7 +113,7 @@ shell_exec($command_chown);
 
     echo "Private key has been written, ownership and permissions updated!";
 
-    $playbook = '/var/www/html/proyecto/playbooks/backup_linux.yml';
+    $playbook = '/var/www/html/proyecto-delete/playbooks/backup_linux.yml';
     $playbook = escapeshellarg($playbook);
 
     $command = "sudo ansible-playbook -i $ip, -u $usuario --private-key $ruta_clave --extra-vars 'machine_ip=$ip' $playbook 2>&1";

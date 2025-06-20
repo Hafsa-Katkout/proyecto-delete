@@ -202,7 +202,7 @@ $resultado = $conexion->query($consulta);
                         <a href="delete2.php?producto_id=<?php echo $fila['id']; ?>" 
                         class="boton boton-editar" 
                         style="background-color:#dc3545;" 
-                        onclick="return confirm('¿Está seguro de eliminar este producto?')">
+                        onclick="return confirm('¿Está seguro de eliminar esta maquina?')">
                         Eliminar
                         </a>
                     </td>
